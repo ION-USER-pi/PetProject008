@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>petproject008</title>
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --secondary: #166088;
+      --accent: #4fc3f7;
+      --background: #f8f9fa;
+      --text: #333;
+      --light-text: #666;
+      --card-bg: #fff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--background);
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    
+    nav {
+      background-color: var(--card-bg);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .logo {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.25rem;
+      text-decoration: none;
+      padding: 1rem 0;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li a {
+      display: block;
+      padding: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .nav-links li a:hover {
+      color: var(--primary);
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    section {
+      margin-bottom: 3rem;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      margin: 1.5rem 0 1rem;
+      color: var(--secondary);
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .complexity {
+      font-size: 0.9rem;
+      color: var(--light-text);
+      margin-top: 0.5rem;
+    }
+    
+    .example {
+      background-color: #f3f4f6;
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+    
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+    
+    .compare-table th, .compare-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .compare-table th {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .compare-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    .compare-table tr:hover {
+      background-color: #e2e6ea;
+    }
+    
+    .interactive-demo {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+    
+    .demo-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .demo-output {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 4px;
+      min-height: 200px;
+    }
+    
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary);
+    }
+    
+    input, select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    footer {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 1rem 0;
+    }
+    
+    .footer-links li {
+      margin: 0 1rem;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-bg);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .nav-container {
+        flex-wrap: wrap;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .compare-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ranking Algorithms</h1>
+    <p class="subtitle">The Science Behind Ordered Results</p>
+  </header>
+  
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">RankAlgo</a>
+      <button class="hamburger" id="menu-toggle">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#popular">Popular Algorithms</a></li>
+        <li><a href="#comparison">Comparison</a></li>
+        <li><a href="#interactive">Interactive Demo</a></li>
+        <li><a href="#applications">Applications</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main>
+    <section id="introduction">
+      <h2>Introduction to Ranking Algorithms</h2>
+      <p>Ranking algorithms are computational procedures designed to sort items based on their relevance, importance, or other criteria. These algorithms power search engines, recommendation systems, social media feeds, and many other applications we interact with daily.</p>
+      
+      <p>In essence, ranking algorithms attempt to answer one fundamental question: <strong>what should be shown first?</strong> The answer to this question varies widely depending on the context and goals of the system.</p>
+      
+      <h3>Key Concepts</h3>
+      <p>Understanding ranking algorithms requires familiarity with several key concepts:</p>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">Relevance</div>
+          <div class="card-body">
+            <p>How well an item matches a user's query or interests. Relevance may consider many factors including keyword matching, semantic similarity, and user context.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Authority</div>
+          <div class="card-body">
+            <p>A measure of how trustworthy or important a source is. In web contexts, this often relates to links from other respected sites.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Personalization</div>
+          <div class="card-body">
+            <p>Tailoring results based on a user's past behavior, preferences, or demographic information to increase relevance.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Recency</div>
+          <div class="card-body">
+            <p>The timeliness of content. For news and social media, newer content often receives priority in rankings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="popular">
+      <h2>Popular Ranking Algorithms</h2>
+      <p>Many ranking algorithms have been developed over the years, each with its own strengths and applications. Here are some of the most influential:</p>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">PageRank</div>
+          <div class="card-body">
+            <p>Developed by Google's founders, PageRank evaluates the quality and quantity of links to a webpage to determine its importance. Pages with more high-quality backlinks rank higher.</p>
+            <p class="complexity">Time Complexity: O(n)</p>
+            <div class="example">
+              PR(A) = (1-d) + d * (PR(T1)/C(T1) + ... + PR(Tn)/C(Tn))
+            </div>
+            <p>Where PR(A) is the PageRank of page A, d is a damping factor, and C(T) is the number of outbound links from page T.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">TF-IDF</div>
+          <div class="card-body">
+            <p>Term Frequency-Inverse Document Frequency measures how important a word is to a document in a collection. It increases with the number of times a word appears in the document but is offset by how commonly the word appears across all documents.</p>
+            <p class="complexity">Time Complexity: O(n*m) where n is documents and m is terms</p>
+            <div class="example">
+              TF-IDF = TF(t,d) * IDF(t)
+              IDF(t) = log(N / DF(t))
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">HITS Algorithm</div>
+          <div class="card-body">
+            <p>Hyperlink-Induced Topic Search identifies "hub" pages (which link to many authoritative pages) and "authority" pages (which are linked to by many hubs).</p>
+            <p class="complexity">Time Complexity: O(k*|E|) where k is iterations and |E| is edges</p>
+            <div class="example">
+              auth(p) = Σ hub(q) for q linking to p
+              hub(p) = Σ auth(q) for p linking to q
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">ELO Rating System</div>
+          <div class="card-body">
+            <p>Originally developed for chess rankings, ELO is now used in many competitive scenarios. It updates ratings based on win/loss outcomes and the difference between competitors' ratings.</p>
+            <p class="complexity">Time Complexity: O(1) per update</p>
+            <div class="example">
+              R'a = Ra + K * (Sa - Ea)
+              where Ea = 1 / (1 + 10^((Rb-Ra)/400))
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="comparison">
+      <h2>Algorithm Comparison</h2>
+      <p>Different ranking algorithms excel in different contexts. Here's how some of the major algorithms compare:</p>
+      
+      <div class="table-container">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Best For</th>
+              <th>Complexity</th>
+              <th>Adaptability</th>
+              <th>Key Strength</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PageRank</td>
+              <td>Web search</td>
+              <td>Medium</td>
+              <td>Low</td>
+              <td>Link-based authority</td>
+            </tr>
+            <tr>
+              <td>TF-IDF</td>
+              <td>Document search</td>
+              <td>Low</td>
+              <td>Medium</td>
+              <td>Content relevance</td>
+            </tr>
+            <td>HITS</td>
+              <td>Link analysis</td>
+              <td>High</td>
+              <td>Medium</td>
+              <td>Hub-authority structure</td>
+            </tr>
+            <tr>
+              <td>ELO</td>
+              <td>Competitive ranking</td>
+              <td>Very Low</td>
+              <td>High</td>
+              <td>Relative performance</td>
+            </tr>
+            <tr>
+              <td>BM25</td>
+              <td>Text search</td>
+              <td>Low</td>
+              <td>Medium</td>
+              <td>Improved TF-IDF</td>
+            </tr>
+            <tr>
+              <td>Learning to Rank</td>
+              <td>Search engines</td>
+              <td>Very High</td>
+              <td>Very High</td>
+              <td>Machine learning optimization</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <section id="interactive">
+      <h2>Interactive Demo</h2>
+      <p>This interactive demonstration illustrates how different ranking algorithms work. Select an algorithm and adjust parameters to see how rankings change.</p>
+      
+      <div class="interactive-demo">
+        <div class="demo-controls">
+          <select id="algorithm-select">
+            <option value="pagerank">PageRank</option>
+            <option value="tfidf">TF-IDF</option>
+            <option value="elo">ELO Rating</option>
+          </select>
+          
+          <input type="range" id="param-slider" min="0" max="100" value="50">
+          
+          <button class="btn" id="calculate-btn">Calculate Ranking</button>
+        </div>
+        
+        <div class="demo-output" id="demo-output">
+          <p>Select an algorithm and click "Calculate Ranking" to see results.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="applications">
+      <h2>Real-World Applications</h2>
+      <p>Ranking algorithms are ubiquitous in modern technology. Here are some of their most important applications:</p>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">Search Engines</div>
+          <div class="card-body">
+            <p>Google, Bing, and other search engines use complex ranking algorithms to determine the order of search results. These algorithms consider hundreds of factors including content relevance, page authority, user location, and search history.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Social Media Feeds</div>
+          <div class="card-body">
+            <p>Platforms like Facebook, Twitter, and Instagram rank content in feeds based on factors such as recency, engagement, user relationships, and predicted interest.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Recommendation Systems</div>
+          <div class="card-body">
+            <p>Streaming services, e-commerce sites, and content platforms use ranking algorithms to suggest products, movies, or articles based on user preferences and behavior patterns.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Online Marketplaces</div>
+          <div class="card-body">
+            <p>Sites like Amazon and eBay rank products based on relevance to search queries, seller ratings, price competitiveness, and other factors to maximize customer satisfaction and sales.</p>
+          </div>
+        </div>
+      </div>
+      
+      <h3>Ethical Considerations</h3>
+      <p>The widespread use of ranking algorithms raises important ethical questions:</p>
+      <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+        <li>Bias and fairness in algorithmic ranking</li>
+        <li>Transparency and accountability in ranking criteria</li>
+        <li>Filter bubbles and echo chambers</li>
+        <li>Economic impacts of visibility in ranked systems</li>
+      </ul>
+      <p>As these algorithms become more powerful and prevalent, addressing these concerns becomes increasingly important for developers and society.</p>
+    </section>
+  </main>
+  
+  <footer>
+    <h3>Ranking Algorithms</h3>
+    <p>A comprehensive guide to understanding the technology that sorts our digital world</p>
+    
+    <ul class="footer-links">
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#popular">Algorithms</a></li>
+      <li><a href="#comparison">Comparison</a></li>
+      <li><a href="#applications">Applications</a></li>
+    </ul>
+    
+    <p>© 2025 RankAlgo - Educational Resource</p>
+  </footer>
+  
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('show');
+    });
+    
+    // Interactive demo functionality
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+      const algorithm = document.getElementById('algorithm-select').value;
+      const paramValue = document.getElementById('param-slider').value;
+      const output = document.getElementById('demo-output');
+      
+      // Sample data
+      const items = [
+        { id: 1, name: "Item A", links: 10, keywords: 5, rating: 1500 },
+        { id: 2, name: "Item B", links: 25, keywords: 3, rating: 1400 },
+        { id: 3, name: "Item C", links: 5, keywords: 8, rating: 1600 },
+        { id: 4, name: "Item D", links: 18, keywords: 2, rating: 1550 },
+        { id: 5, name: "Item E", links: 12, keywords: 6, rating: 1480 }
+      ];
+      
+      let results = [];
+      const dampingFactor = paramValue / 100;
+      
+      // Simple algorithm simulations
+      switch(algorithm) {
+        case 'pagerank':
+          results = items.map(item => ({
+            ...item,
+            score: (item.links * dampingFactor) + ((1 - dampingFactor) * 5)
+          })).sort((a, b) => b.score - a.score);
+          break;
+          
+        case 'tfidf':
+          results = items.map(item => ({
+            ...item,
+            score: item.keywords * (Math.log(10 / (1 + (10 - item.links) * dampingFactor)))
+          })).sort((a, b) => b.score - a.score);
+          break;
+          
+        case 'elo':
+          results = items.map(item => ({
+            ...item,
+            score: item.rating + (dampingFactor * 200 * Math.random() - 100)
+          })).sort((a, b) => b.score - a.score);
+          break;
+      }
+      
+      // Display results
+      let html = '<h3>' + algorithm.toUpperCase() + ' Ranking Results (Parameter: ' + paramValue + '%)</h3>';
+      html += '<ol>';
+      results.forEach(item => {
+        html += '<li>' + item.name + ' (Score: ' + item.score.toFixed(2) + ')</li>';
+      });
+      html += '</ol>';
+      html += '<p>Note: This is a simplified demonstration and not an accurate implementation of these algorithms.</p>';
+      
+      output.innerHTML = html;
+    });
+  </script>
+</body>
+</html>
